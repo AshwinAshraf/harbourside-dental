@@ -102,15 +102,9 @@ section{position:relative}
 .car-track .t-card{width:min(300px,78vw);flex:none;margin-right:20px;scroll-snap-align:start}
 .carousel.is-running .car-viewport{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 6%,#000 94%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 6%,#000 94%,transparent 100%)}
 .carousel.is-running .car-track{animation:flow var(--dur,48s) linear infinite}
-.carousel.is-running:hover .car-track,.carousel.is-running:focus-within .car-track,.carousel.paused .car-track{animation-play-state:paused}
+.carousel.is-running:hover .car-track,.carousel.is-running:focus-within .car-track{animation-play-state:paused}
 @keyframes flow{to{transform:translateX(-50%)}}
-.car-controls{display:flex;justify-content:center;margin-top:18px}
-.car-toggle{display:none;align-items:center;gap:8px;min-height:44px;padding:0 18px;border-radius:999px;border:2px solid var(--line);background:var(--paper);color:var(--ink);font-weight:700;font-size:15px}
-.car-toggle:hover{border-color:var(--teal)}
-.carousel.is-running .car-toggle{display:inline-flex}
-.car-toggle .play{display:none}
-.car-toggle[aria-pressed="true"] .pause{display:none}
-.car-toggle[aria-pressed="true"] .play{display:inline}
+
 .t-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:30px;display:flex;flex-direction:column;gap:10px;transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease}
 .t-card:hover{border-color:#9FD6E3}
 .t-card .ico{width:60px;height:60px;border-radius:18px;display:flex;align-items:center;justify-content:center;margin-bottom:6px}
@@ -183,8 +177,6 @@ table.hours td{text-align:right;padding:10px 0;border-bottom:1px solid rgba(255,
 table.hours tr.today th,table.hours tr.today td{color:#8EDBD0;font-weight:700}
 .contact a{display:block;color:#fff;font-weight:700;text-decoration:none;padding:6px 0}
 .contact a:hover{text-decoration:underline}
-.reception{margin-top:24px;border-radius:24px;overflow:hidden;aspect-ratio:16/10;background:var(--ink-2)}
-.reception video{width:100%;height:100%;object-fit:cover}
 .form-card{background:var(--paper);color:var(--ink);border-radius:32px;padding:34px;box-shadow:0 30px 60px rgba(0,0,0,.25)}
 .form-card h3{color:var(--ink);font-size:26px;margin-bottom:6px}
 .form-card > p{margin:0 0 22px;color:var(--muted);font-size:16px}
@@ -302,13 +294,6 @@ footer{background:#0A2D38;color:#BFD9E0}
       <article class="t-card"><span class="ico" style="background:var(--sand)" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#B45309" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><h3>Emergency care</h3><p>Same-day appointments for pain, swelling or a broken tooth.</p><span class="from">From <b>£85</b></span></article>
     </div>
       </div>
-      <div class="car-controls">
-        <button class="car-toggle" type="button" aria-pressed="false">
-          <svg class="pause" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
-          <svg class="play" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5l11 7-11 7z"/></svg>
-          <span class="lbl">Pause carousel</span>
-        </button>
-      </div>
     </div>
   </div>
 </section>
@@ -411,11 +396,6 @@ footer{background:#0A2D38;color:#BFD9E0}
         <a href="mailto:hello@example.com">[Email address]</a>
         <p style="margin:6px 0 0">[Practice address], [Town, postcode]</p>
       </div>
-      <div class="reception">
-        <video class="lazy-video" muted loop playsinline preload="none" aria-label="Our welcoming reception area">
-          <source data-src="https://assets.mixkit.co/videos/4766/4766-720.mp4" type="video/mp4">
-        </video>
-      </div>
     </div>
 
     <div class="form-card" id="book">
@@ -482,7 +462,7 @@ footer{background:#0A2D38;color:#BFD9E0}
     document.querySelectorAll('.lazy-video').forEach(function(v){io.observe(v);});
   }
 
-  /* Treatments carousel: continuous smooth flow, pausable; scrollable list with reduced motion */
+  /* Treatments carousel: continuous smooth flow, pauses on hover/focus; scrollable list with reduced motion */
   (function(){
     var car=document.querySelector('.carousel');if(!car||reduce)return;
     var track=car.querySelector('.car-track'),cards=[].slice.call(track.children);
@@ -490,7 +470,6 @@ footer{background:#0A2D38;color:#BFD9E0}
     car.querySelector('.car-viewport').removeAttribute('tabindex');
     car.style.setProperty('--dur',(cards.length*8)+'s');
     car.classList.add('is-running');
-    var b=car.querySelector('.car-toggle'),l=b.querySelector('.lbl');
     b.addEventListener('click',function(){var p=car.classList.toggle('paused');b.setAttribute('aria-pressed',p?'true':'false');l.textContent=p?'Play carousel':'Pause carousel';});
   })();
 
