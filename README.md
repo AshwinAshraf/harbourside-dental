@@ -4,7 +4,7 @@ A single-page website for a fictional private dental practice, built with plain 
 
 **Live site:** https://ashwinashraf.github.io/harbourside-dental/
 
-!\[Screenshot of the Harbourside Dental homepage](docs/screenshot.png)
+![Screenshot of the Harbourside Dental homepage](docs/screenshot.png)
 
 ## Features
 
