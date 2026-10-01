@@ -63,7 +63,7 @@ header.top{position:sticky;top:0;z-index:50;background:rgba(245,252,253,.9);back
 .hero{position:relative;min-height:min(86vh,760px);display:flex;align-items:flex-end;overflow:hidden;background:#0F3D4C;color:#fff}
 .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .hero-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,45,56,.25) 0%,rgba(10,45,56,.55) 45%,rgba(10,45,56,.88) 100%)}
-.hero-inner{position:relative;z-index:1;width:100%;padding-top:140px;padding-bottom:88px}
+.hero-inner{position:relative;z-index:1;width:100%;padding-top:160px;padding-bottom:96px}
 .hero-tag{margin:0 0 18px;font-weight:700;font-size:16px;letter-spacing:.04em;color:#D7F5EE}
 .hero h1{font-size:clamp(46px,7.2vw,92px);margin:0 0 22px;letter-spacing:-.025em;color:#fff;max-width:900px}
 .hero h1 .line{display:block;overflow:hidden;padding-bottom:.06em}
@@ -80,10 +80,10 @@ header.top{position:sticky;top:0;z-index:50;background:rgba(245,252,253,.9);back
 
 /* Assurance band */
 .band{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.band ul{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr));gap:24px;margin:0;padding:34px 0;list-style:none}
-.band li{display:flex;gap:14px;align-items:flex-start}
+.band ul{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:28px;margin:0 auto;padding:40px 20px;list-style:none}
+.band li{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px}
 .band .ico{width:48px;height:48px;border-radius:16px;background:var(--sky);display:flex;align-items:center;justify-content:center;flex:none}
-.band strong{display:block;font-size:18px}
+.band strong{display:block;font-size:18px;margin-bottom:2px}
 .band span{color:var(--muted);font-size:16px}
 
 /* Sections */
@@ -96,7 +96,21 @@ section{position:relative}
 .kicker::before{content:"";width:22px;height:2px;background:currentColor;border-radius:2px}
 
 /* Treatments */
-.t-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(260px,100%),1fr));gap:20px}
+.carousel{position:relative}
+.car-viewport{overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 0 18px;-webkit-overflow-scrolling:touch}
+.car-track{display:flex;width:max-content}
+.car-track .t-card{width:min(300px,78vw);flex:none;margin-right:20px;scroll-snap-align:start}
+.carousel.is-running .car-viewport{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 6%,#000 94%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 6%,#000 94%,transparent 100%)}
+.carousel.is-running .car-track{animation:flow var(--dur,48s) linear infinite}
+.carousel.is-running:hover .car-track,.carousel.is-running:focus-within .car-track,.carousel.paused .car-track{animation-play-state:paused}
+@keyframes flow{to{transform:translateX(-50%)}}
+.car-controls{display:flex;justify-content:center;margin-top:18px}
+.car-toggle{display:none;align-items:center;gap:8px;min-height:44px;padding:0 18px;border-radius:999px;border:2px solid var(--line);background:var(--paper);color:var(--ink);font-weight:700;font-size:15px}
+.car-toggle:hover{border-color:var(--teal)}
+.carousel.is-running .car-toggle{display:inline-flex}
+.car-toggle .play{display:none}
+.car-toggle[aria-pressed="true"] .pause{display:none}
+.car-toggle[aria-pressed="true"] .play{display:inline}
 .t-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:30px;display:flex;flex-direction:column;gap:10px;transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease}
 .t-card:hover{border-color:#9FD6E3}
 .t-card .ico{width:60px;height:60px;border-radius:18px;display:flex;align-items:center;justify-content:center;margin-bottom:6px}
@@ -277,13 +291,24 @@ footer{background:#0A2D38;color:#BFD9E0}
       <div><span class="kicker">What we do</span><h2 id="t-title">Treatments</h2></div>
       <p>Starting prices shown. Your exact cost is confirmed in writing after your check-up.</p>
     </div>
-    <div class="t-grid">
+    <div class="carousel" role="region" aria-roledescription="carousel" aria-label="Treatments">
+      <div class="car-viewport" tabindex="0">
+      <div class="car-track">
       <article class="t-card"><span class="ico" style="background:var(--sky)" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#0E7490" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></span><h3>Check-up and hygiene</h3><p>Full examination, X-rays where needed and a gentle professional clean.</p><span class="from">From <b>£55</b></span></article>
       <article class="t-card"><span class="ico" style="background:var(--mint)" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12c2-3 5-4 8-4s6 1 8 4c-2 3-5 4-8 4s-6-1-8-4z"/><path d="M8 12h8"/></svg></span><h3>Clear aligners</h3><p>Discreet straightening, with a digital preview of your new smile first.</p><span class="from">From <b>£2,400</b></span></article>
       <article class="t-card"><span class="ico" style="background:var(--sand)" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#B45309" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg></span><h3>Teeth whitening</h3><p>Custom trays for safe, even whitening at home, supervised by us.</p><span class="from">From <b>£295</b></span></article>
       <article class="t-card"><span class="ico" style="background:var(--sky)" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#0E7490" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v6"/><path d="M9 9h6l-1 12h-4z"/></svg></span><h3>Dental implants</h3><p>A long-term replacement for missing teeth, planned with 3D scans.</p><span class="from">From <b>£2,200</b></span></article>
       <article class="t-card"><span class="ico" style="background:var(--mint)" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M5 21c1-4 4-6 7-6s6 2 7 6"/></svg></span><h3>Children's dentistry</h3><p>Relaxed, friendly visits that help little ones feel at home in the chair.</p><span class="from">From <b>£35</b></span></article>
       <article class="t-card"><span class="ico" style="background:var(--sand)" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#B45309" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><h3>Emergency care</h3><p>Same-day appointments for pain, swelling or a broken tooth.</p><span class="from">From <b>£85</b></span></article>
+    </div>
+      </div>
+      <div class="car-controls">
+        <button class="car-toggle" type="button" aria-pressed="false">
+          <svg class="pause" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+          <svg class="play" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5l11 7-11 7z"/></svg>
+          <span class="lbl">Pause carousel</span>
+        </button>
+      </div>
     </div>
   </div>
 </section>
@@ -456,6 +481,18 @@ footer{background:#0A2D38;color:#BFD9E0}
       else{v.pause();}});},{rootMargin:'200px 0px'});
     document.querySelectorAll('.lazy-video').forEach(function(v){io.observe(v);});
   }
+
+  /* Treatments carousel: continuous smooth flow, pausable; scrollable list with reduced motion */
+  (function(){
+    var car=document.querySelector('.carousel');if(!car||reduce)return;
+    var track=car.querySelector('.car-track'),cards=[].slice.call(track.children);
+    cards.forEach(function(c){var k=c.cloneNode(true);k.setAttribute('aria-hidden','true');k.setAttribute('inert','');track.appendChild(k);});
+    car.querySelector('.car-viewport').removeAttribute('tabindex');
+    car.style.setProperty('--dur',(cards.length*8)+'s');
+    car.classList.add('is-running');
+    var b=car.querySelector('.car-toggle'),l=b.querySelector('.lbl');
+    b.addEventListener('click',function(){var p=car.classList.toggle('paused');b.setAttribute('aria-pressed',p?'true':'false');l.textContent=p?'Play carousel':'Pause carousel';});
+  })();
 
   /* Open now */
   (function(){
